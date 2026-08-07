@@ -17,11 +17,13 @@ This library is that path. It renders a skinned GLB inside Mapbox's own GL frame
 three.js, no Filament, no Sceneform. Just a GLB parser and an OpenGL ES 3.0 renderer
 in about 2,300 lines of Kotlin.
 
-<!--
-  TODO: record a screen capture of the example app (character walking behind a
-  Manhattan tower, idle↔walk cross-fade, light preset switching) and embed it here.
-  A GIF at the top of the README is what makes people scroll down.
--->
+| Occluded by a building | Standing in the street |
+| --- | --- |
+| ![Character partially hidden behind a building](docs/images/character-occluded.png) | ![Character on West 33rd Street](docs/images/character-street.png) |
+
+Both are unretouched screenshots of the bundled example app. In the left one the
+building edge cuts straight through the character — that is the map's own depth buffer
+doing the work, not a sprite drawn on top.
 
 **Android only.** See [Limitations](#limitations) before you invest.
 
@@ -251,15 +253,29 @@ export as `.glb`.
 **The character is stretched thin** — you are passing a `scale` meant for a
 differently-sized model. `scale` is metres per glTF unit, not a multiplier.
 
+**The whole map is blank — flat colour, no tiles, no buildings — but the character
+renders** — this one is not caused by this library, and it cost real time to find.
+`@rnmapbox/maps` (10.3.1) types `StyleImport`'s `show3dObjects` as a `boolean`, but the
+native side only honours the **string** `'true'`. Passing an actual `true` silently
+drops the entire basemap import, with no error logged anywhere. Use `'true'` with a
+cast, as the [example does](./example/App.tsx). Your token is probably fine — if the
+custom layer installed at all, the style loaded, which means the token worked.
+
 **Buildings draw over the character when they should not** — try
 `setSkeletalDepthBias(layerId, 0.0005)`. Report the device if you need it.
 
 ## Status
 
 `0.1.0`. The renderer is extracted from a shipping Expo app where it has been running on
-a Samsung Galaxy S24 Ultra since mid-2026; the packaging around it — the config plugin,
-the example app, and this documentation — is new and has had less mileage. Issues and
-device reports are genuinely useful.
+a Samsung Galaxy S24 Ultra since mid-2026. The packaging around it — the config plugin,
+the example app, and this documentation — is new.
+
+What has been verified for this repo specifically: the example app builds and runs on an
+Android 15 emulator, parses `Soldier.glb` (2 meshes, 2 skins, 2 textures, 4 clips, 68
+nodes), installs the custom layer, cross-fades idle↔walk from the D-pad, and is occluded
+by buildings — the screenshots above are from that run. It has **not** been re-verified
+on physical hardware since extraction, and the fox model has had less exercise than the
+soldier. Device reports are genuinely useful.
 
 ## Credits and licence
 

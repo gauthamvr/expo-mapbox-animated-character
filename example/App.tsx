@@ -49,6 +49,12 @@ type ModelKey = keyof typeof MODELS;
 
 const LIGHT_PRESETS: SkeletalLightPreset[] = ['day', 'dusk', 'night', 'dawn'];
 
+// @rnmapbox/maps 10.3.1 declares StyleImport's `show3dObjects` as a boolean, but the
+// native side only honours the string form. Passing a real `true` silently drops the
+// whole basemap import — you get a flat green screen with no tiles and no buildings,
+// and no error anywhere. The cast is deliberate; verified on device.
+const SHOW_3D_OBJECTS = 'true' as unknown as boolean;
+
 const SPEED_M_PER_S = 45; // tuned so you cross a city block in a couple of seconds
 const PUBLISH_HZ = 60;
 const EARTH_R = 6378137;
@@ -237,7 +243,7 @@ export default function App() {
         zoomEnabled={false}
         onDidFinishLoadingStyle={installLayer}
       >
-        <StyleImport id="basemap" existing config={{ lightPreset: light, show3dObjects: true }} />
+        <StyleImport id="basemap" existing config={{ lightPreset: light, show3dObjects: SHOW_3D_OBJECTS }} />
         <Camera
           ref={camera}
           defaultSettings={{
