@@ -1,0 +1,14 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-mapbox-animated-character": ["../src/index.ts"],
+      // ../src has no node_modules of its own, so point its imports at the ones the
+      // example installed. This is only for typechecking — Metro resolves at runtime.
+      "expo-modules-core": ["./node_modules/expo-modules-core"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "../src/**/*.ts"],
+  "exclude": ["node_modules", "android", "ios"]
+}

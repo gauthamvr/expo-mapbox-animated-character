@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+group = 'expo.modules.mapboxanimatedcharacter'
+version = '0.1.0'
+
+def safeExtGet(prop, fallback) {
+  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+// The Mapbox SDK is only needed to compile against — @rnmapbox/maps supplies the
+// actual artifact at runtime, so the two must agree on a version.
+//
+// Sources in order of reliability: the rnmapbox Expo plugin writes
+// `expoRNMapboxMapsVersion` into gradle.properties, which every project can read from
+// the start of configuration; rootProject.ext.RNMapboxMapsVersion is only populated
+// once rnmapbox's own build.gradle has been evaluated, which may be after this one.
+def resolveMapboxVersion() {
+  def fromProperties = project.findProperty('expoRNMapboxMapsVersion')
+  if (fromProperties) return fromProperties
+  if (rootProject.ext.has('RNMapboxMapsVersion')) return rootProject.ext.get('RNMapboxMapsVersion')
+  return project.findProperty('MapboxAnimatedCharacterMapsVersion') ?: '11.20.1'
+}
+
+android {
+  namespace 'expo.modules.mapboxanimatedcharacter'
+  compileSdkVersion safeExtGet('compileSdkVersion', 35)
+
+  defaultConfig {
+    minSdkVersion safeExtGet('minSdkVersion', 24)
+    targetSdkVersion safeExtGet('targetSdkVersion', 35)
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+
+  kotlinOptions {
+    jvmTarget = '17'
+  }
+}
+
+dependencies {
+  implementation project(':expo-modules-core')
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${safeExtGet('kotlinVersion', '1.9.25')}"
+
+  def mapboxVersion = resolveMapboxVersion()
+  // Mirror rnmapbox's own artifact choice: it switches to the NDK 27 variant at
+  // targetSdk 35+ for 16 KB page-size support.
+  if (safeExtGet('targetSdkVersion', 35) >= 35) {
+    compileOnly "com.mapbox.maps:android-ndk27:${mapboxVersion}"
+  } else {
+    compileOnly "com.mapbox.maps:android:${mapboxVersion}"
+  }
+}

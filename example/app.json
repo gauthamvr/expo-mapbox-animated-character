@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Animated Character Demo",
+    "slug": "expo-mapbox-animated-character-example",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "newArchEnabled": true,
+    "android": {
+      "package": "dev.example.mapboxanimatedcharacter"
+    },
+    "plugins": [
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsVersion": "11.20.1"
+        }
+      ],
+      [
+        "expo-mapbox-animated-character",
+        {
+          "models": ["./assets/models/Soldier.glb", "./assets/models/fox.glb"]
+        }
+      ]
+    ]
+  }
+}

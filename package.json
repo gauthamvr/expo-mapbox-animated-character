@@ -1,0 +1,56 @@
+{
+  "name": "expo-mapbox-animated-character",
+  "version": "0.1.0",
+  "description": "Animated, skinned glTF/GLB characters on native Mapbox maps in React Native / Expo — with real 3D building occlusion. Fills the gap left by Mapbox's model layer, which does not support glTF skinning or animation. Android.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "files": [
+    "src",
+    "plugin",
+    "android",
+    "app.plugin.js",
+    "expo-module.config.json",
+    "README.md",
+    "CREDITS.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "expo",
+    "react-native",
+    "mapbox",
+    "rnmapbox",
+    "gltf",
+    "glb",
+    "skeletal-animation",
+    "skinned-mesh",
+    "3d-character",
+    "animated-character",
+    "custom-layer",
+    "occlusion",
+    "opengl-es",
+    "android",
+    "game",
+    "avatar"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gauthamvr/expo-mapbox-animated-character.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gauthamvr/expo-mapbox-animated-character/issues"
+  },
+  "homepage": "https://github.com/gauthamvr/expo-mapbox-animated-character#readme",
+  "license": "MIT",
+  "author": "Gautham V R",
+  "peerDependencies": {
+    "@rnmapbox/maps": ">=10.0.0",
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@expo/config-plugins": "^56.0.14",
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  }
+}

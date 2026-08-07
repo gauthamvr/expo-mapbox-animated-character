@@ -1,0 +1,25 @@
+{
+  "name": "expo-mapbox-animated-character-example",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "android": "expo run:android",
+    "start": "expo start --dev-client",
+    "prebuild": "expo prebuild --clean",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@rnmapbox/maps": "^10.3.1",
+    "expo": "~56.0.8",
+    "expo-mapbox-animated-character": "file:..",
+    "expo-status-bar": "~56.0.4",
+    "react": "19.2.3",
+    "react-native": "0.85.3"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "babel-preset-expo": "~56.0.0",
+    "typescript": "~6.0.3"
+  }
+}
