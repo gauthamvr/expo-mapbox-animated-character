@@ -17,9 +17,11 @@ Mapbox.setAccessToken(MAPBOX_TOKEN);
 
 const LAYER_ID = 'demo-character';
 
-// Midtown Manhattan — dense 3D buildings in the Mapbox Standard style, which is what
-// makes the occlusion obvious: walk the character north and it disappears behind them.
-const START = { lng: -73.9857, lat: 40.7484 };
+// Washington Square Park, New York. Deliberately not a dense downtown: open ground to
+// see the character on, ringed by mid-rise buildings to walk behind. In Midtown the
+// character spends most of its time inside a tower footprint, which demonstrates
+// occlusion but shows you nothing.
+const START = { lng: -73.9973, lat: 40.7308 };
 
 // Character world height in metres. These are big on purpose: a real 1.8 m human is a
 // speck next to a 100 m tower, so games scale the avatar up. `scale` is metres of world

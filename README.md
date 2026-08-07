@@ -17,13 +17,27 @@ This library is that path. It renders a skinned GLB inside Mapbox's own GL frame
 three.js, no Filament, no Sceneform. Just a GLB parser and an OpenGL ES 3.0 renderer
 in about 2,300 lines of Kotlin.
 
+<p align="center">
+  <img src="docs/images/demo.gif" alt="A soldier walking out of Washington Square Park, vanishing behind the buildings on the north side, walking back into the open, and the light preset switching to dusk" width="300">
+</p>
+
+That is the bundled example app, recorded off a device — not a mockup. The character
+walks out of the park, **disappears behind the buildings** on Washington Square North,
+walks back into the open, and the light preset switches to dusk. Idle and walk clips
+cross-fade as it starts and stops.
+
+<details>
+<summary>Closer look at the depth test</summary>
+
 | Occluded by a building | Standing in the street |
 | --- | --- |
 | ![Character partially hidden behind a building](docs/images/character-occluded.png) | ![Character on West 33rd Street](docs/images/character-street.png) |
 
-Both are unretouched screenshots of the bundled example app. In the left one the
-building edge cuts straight through the character — that is the map's own depth buffer
-doing the work, not a sprite drawn on top.
+Two stills from a denser part of Manhattan. In the left one the building edge cuts
+straight through the character — that is the map's own depth buffer doing the work, not
+a sprite drawn on top.
+
+</details>
 
 **Android only.** See [Limitations](#limitations) before you invest.
 
@@ -75,11 +89,12 @@ npm install
 npx expo run:android      # device or emulator, first build takes a few minutes
 ```
 
-You get a map over Midtown Manhattan with a 22 m soldier standing in the street.
-Hold the D-pad to walk — the walk clip fades in, the character turns to face travel,
-and walking north takes it behind the towers. The chips on the right switch model
-(Soldier ↔ Fox), cycle the light preset, and flip between follow-camera and
-free-camera anchoring.
+You get the view in the GIF above: a 22 m soldier standing in Washington Square Park.
+Hold the D-pad to walk — the walk clip fades in, the character turns to face travel, and
+walking north takes it behind the buildings. The park is deliberate: somewhere dense
+like Midtown demonstrates occlusion but hides the character almost continuously, which
+shows you nothing. The chips on the right switch model (Soldier ↔ Fox), cycle the light
+preset, and flip between follow-camera and free-camera anchoring.
 
 If the app opens on a "Mapbox access token missing" screen, your `.env` was not picked
 up — restart the bundler after creating it.
@@ -273,7 +288,7 @@ the example app, and this documentation — is new.
 What has been verified for this repo specifically: the example app builds and runs on an
 Android 15 emulator, parses `Soldier.glb` (2 meshes, 2 skins, 2 textures, 4 clips, 68
 nodes), installs the custom layer, cross-fades idle↔walk from the D-pad, and is occluded
-by buildings — the screenshots above are from that run. It has **not** been re-verified
+by buildings — the GIF and screenshots above are from that run. It has **not** been re-verified
 on physical hardware since extraction, and the fox model has had less exercise than the
 soldier. Device reports are genuinely useful.
 
