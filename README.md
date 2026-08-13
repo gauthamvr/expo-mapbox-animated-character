@@ -101,8 +101,11 @@ up — restart the bundler after creating it.
 
 ## Use it in your own app
 
+Not on the npm registry — install it from GitHub. npm resolves this to the current
+`main` and pins that exact commit in your lockfile:
+
 ```bash
-npm install expo-mapbox-animated-character
+npm install github:gauthamvr/expo-mapbox-animated-character
 ```
 
 Add the config plugin to `app.json` and point it at your models. The plugin copies them
